@@ -8,7 +8,7 @@ library(ggplot2)
 
 # Stationarity test
 library(tseries)
-adf.test(aggr_train$y,k=12)
+adf.test(aggr_train$y,k=12)-
 kpss.test(aggr_train$y)
 
 # read data
@@ -43,30 +43,3 @@ forecast = predict(m, future)
 # Visualize forecast
 plot(m, forecast)
 write.csv(data.frame(forecast$ds,forecast$yhat),"forecast_prophet.csv")
-
-#arima
-  
-# loading packages
-library(forecast)
-library(Metrics)
-
-# removing "Month" column
-aggr_train$ds = NULL
-
-# training model
-model = auto.arima(aggr_train,seasonal = TRUE)
-
-# model summary
-summary(model)
-
-# forecasting
-forecast = predict(model,n.ahead = 60)
-write.csv(forecast,"forecast_arima.csv")
-
-
-#####  SES
-# Convert the data to be officially "time-series" data
-model1<-ses(aggr_train$y, h=60, alpha=0.4, initial="simple",level=99)
-forecast(model1)
-length(model1)
-
