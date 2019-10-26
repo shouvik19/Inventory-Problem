@@ -1,3 +1,6 @@
+
+## LOADING PACKAGES
+
 library(prophet)
 library(data.table)
 library(dplyr)
