@@ -4,4 +4,9 @@ This is going to be a time series forecasting problem wherein you need to foreca
 
 https://www.kaggle.com/c/inventory-optimization
 
-Here I have applied multiple forecasting techniques submitted my result for scoring.
+Here I have applied multiple forecasting techniques :-
+1) Facebook prophet
+2) ARIMA
+3) Simple exponential smoothing
+
+Facebook prophet proved to be the most accurate method for the given dataset
