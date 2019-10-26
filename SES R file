@@ -1,0 +1,36 @@
+## LOADING PACKAGES 
+  
+library(prophet)
+library(data.table)
+library(dplyr)
+library(ggplot2)
+
+# Stationarity test
+library(tseries)
+adf.test(aggr_train$y,k=12)
+kpss.test(aggr_train$y)
+
+# Export data
+train = fread("Train_V3.csv")
+
+# Extract date from the Datetime variable
+train$Date = as.POSIXct(strptime(train$Sales_date, "%d-%m-%Y"))
+
+# Convert 'Datetime' variable from character to date-time format
+train$Date1 = as.POSIXct(strptime(train$Sales_date, "%d-%m-%Y %H:%M"))
+
+# view 
+head(train)
+
+# Aggregate train data day-wise
+aggr_train = train[,c('Date','Qty')]
+
+# Visualize the data
+ggplot(aggr_train) + geom_line(aes(Date, Qty))
+
+# Change column names
+names(aggr_train) = c("ds", "y")
+
+# simple exponential smoothing
+model1<-ses(aggr_train$y, h=60, alpha=0.4, initial="simple",level=99)
+forecast(model1)
